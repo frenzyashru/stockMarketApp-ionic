@@ -1,0 +1,53 @@
+
+<!-- the binding is done through state param service -->
+<ion-view view-title="{{ticker}}">
+
+  <!-- use the ionic sub header bar. Look up the documentation in ionic-->
+  <div class="bar bar-subheader bar-light">
+  <!-- Now add the button divs-->
+  <div class="buttons" side = "left">
+    <div class="button button-clear">
+      <h6>{{stockDetailsData.Name}}</h6>
+
+    </div>
+  </div>
+
+  <h2 class="title button-left button right">{{stockPriceData.price}}</h2>
+
+  <div class="buttons" side = "right">
+    <div class="button button-clear">
+      <h6>{{stockPriceData.chg_percent}}%.</h6>
+
+    </div>
+  </div>
+
+</div>
+  <ion-content class = "has-subheader">
+    <div class="card">
+      <div class="item item-divider"> Market Data</div>
+      <div class="row row-center">
+        <div class="col"> Data : </div>
+        <div class="col">1000.5000</div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="item item-divider">Notes:</div>
+      <a class="item">
+      <h2>Note title</h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="item item-divider"> News : </div>
+      <a class="item item-icon-right">
+        <h2>News Story</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </a>
+
+    </div>
+
+
+  </ion-content>
+</ion-view>

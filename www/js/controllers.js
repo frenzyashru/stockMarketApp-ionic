@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('yourAppsName.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,16 +41,67 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+.controller('MyStocksCtrl', ['$scope',
+ function($scope) {
+  $scope.mystocksArray = [
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+    {ticker: "AAPL"},
+    {ticker: "GPRO"},
+    {ticker: "FB"},
+    {ticker: "NLFX"},
+    {ticker: "TSLA"},
+    {ticker: "BRK-A"},
+    {ticker: "INTC"},
+    {ticker: "MSFT"},
+    {ticker: "GE"},
+    {ticker: "BAC"},
+    {ticker: "C"},
+    {ticker: "T"},
+
+  ];
+}])
+
+.controller('StockCtrl', ['$scope','$stateParams','stockDataService', function($scope, $stateParams, stockDataService) {
+// //http://finance.yahoo.com/webservice/v1/symbols/YHOO/quote?format=json&view=detail
+//   $http.get("http://finance.yahoo.com/webservice/v1/symbols/YHOO/quote?format=json&view=detail").then(function(jsonData){
+//     console.log(jsonData.data.list.resources[0].resource.fields);
+//
+//   });
+  $scope.ticker =   $stateParams.stockTicker;
+
+  $scope.$on('$ionicView.afterEnter', function(){
+
+    getPriceData();
+    getDetailsData();
+
+  });
+
+
+  function getPriceData(){
+
+    //console.log($scope.ticker);
+    var promise =  stockDataService.getDataService($scope.ticker);
+
+    promise.then(function(data){
+    console.log(data);
+    $scope.stockPriceData = data;
+
+    });
+
+  }
+
+
+  function getDetailsData(){
+
+    //console.log($scope.ticker);
+    var promise =  stockDataService.getDetailsData($scope.ticker);
+
+    promise.then(function(data){
+    console.log(data);
+    $scope.stockDetailsData = data;  
+
+    });
+
+  }
+
+}]);
